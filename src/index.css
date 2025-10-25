@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@keyframes glowWave {
+    0% {
+        background-position: 50% 0%;
+        opacity: 0.3;
+    }
+    50% {
+        background-position: 50% 100%;
+        opacity: 1;
+    }
+    100% {
+        background-position: 50% 0%;
+        opacity: 0.3;
+    }
+}
+
+.glow-wave {
+    background-image: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.7),
+            transparent 60%
+    );
+    background-size: 100% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: black;
+    animation: glowWave 2.5s ease-in-out infinite;
+}
