@@ -21,7 +21,6 @@ const Body = () => {
                         </p>
                         <ul className="mt-6 space-y-2 text-white/70">
                             <li>• Real names. Real students.</li>
-                            <li>• Private events with capacity.</li>
                             <li>• Invite friends into your circle.</li>
                         </ul>
                     </motion.div>
@@ -55,7 +54,7 @@ const Body = () => {
                     >
                         <h2 className="text-3xl font-bold text-white md:text-4xl">Plan. Pull up. Post.</h2>
                         <p className="mt-4 text-white/70">
-                            Parties, study groups, last‑minute meetups. Capacity, requests, announcements—handled.
+                            Events without the hassle. You plan it, Collegium makes it real.
                         </p>
                         <p className="mt-2 text-white/60">Miss out? That’s on you.</p>
                     </motion.div>
