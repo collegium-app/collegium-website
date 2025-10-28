@@ -15,13 +15,14 @@ const Body = () => {
                         transition={{ duration: 0.5 }}
                         className="order-2 md:order-1"
                     >
-                        <h2 className="text-3xl font-bold text-white md:text-4xl">Your campus, unfiltered.</h2>
+                        <h2 className="text-3xl font-bold text-white md:text-4xl">Your city, unfiltered.</h2>
                         <p className="mt-4 text-white/70">
-                            Trending posts by major & city. Join private groups. See what’s happening tonight.
+                            Explore trending posts, and see what’s going on tonight.
                         </p>
                         <ul className="mt-6 space-y-2 text-white/70">
                             <li>• Real names. Real students.</li>
-                            <li>• Invite friends into your circle.</li>
+                            <li>• Find out what’s popping around you.</li>
+                            <li>• Meet your people. Make new memories.</li>
                         </ul>
                     </motion.div>
                     <motion.div
@@ -31,7 +32,11 @@ const Body = () => {
                         transition={{ duration: 0.5 }}
                         className="order-1 md:order-2"
                     >
-                        <img src={headerImg1} alt="Collegium feed" className="mx-auto w-full max-w-xs rounded-2xl border border-white/10 shadow-2xl" />
+                        <img
+                            src={headerImg1}
+                            alt="Collegium feed"
+                            className="mx-auto w-[400px] md:w-[460px] shadow-2xl"
+                        />
                     </motion.div>
                 </div>
 
@@ -43,7 +48,11 @@ const Body = () => {
                         transition={{ duration: 0.5 }}
                         className="order-1"
                     >
-                        <img src={headerImg2} alt="Collegium events" className="mx-auto w-full max-w-xs rounded-2xl border border-white/10 shadow-2xl" />
+                        <img
+                            src={headerImg2}
+                            alt="Collegium events"
+                            className="mx-auto w-[400px] md:w-[460px] shadow-2xl"
+                        />
                     </motion.div>
                     <motion.div
                         initial={{ opacity: 0, x: 40 }}
@@ -52,7 +61,7 @@ const Body = () => {
                         transition={{ duration: 0.5 }}
                         className="order-2"
                     >
-                        <h2 className="text-3xl font-bold text-white md:text-4xl">Plan. Pull up. Post.</h2>
+                        <h2 className="text-3xl font-bold text-white md:text-4xl">Plan. Post. Pull up.</h2>
                         <p className="mt-4 text-white/70">
                             Events without the hassle. You plan it, Collegium makes it real.
                         </p>

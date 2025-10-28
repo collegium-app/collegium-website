@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Sparkles, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import logoG from "/collegium-website-logo.png";
 
 const taglines = [
@@ -54,9 +54,10 @@ const Header = () => {
 
             <div className="relative z-10 mx-auto max-w-6xl px-6">
                 <div className="flex flex-col items-center">
-                    <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80">
+                    {/* <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/80">
                         <Sparkles size={14} /> Students only • Limited spots per campus
                     </div>
+                    */}
 
                     <h1 className="select-none flex items-center justify-center text-5xl font-extrabold tracking-[-0.02em] md:text-7xl leading-none text-white">
                         <span>COLLE</span>
