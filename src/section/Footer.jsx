@@ -7,7 +7,7 @@ const Footer = () => {
             <div className="mt-3 text-xs text-white/50">
                 <a href="https://www.instagram.com/collegium.eu/" target="_blank" className="hover:text-white/80">Instagram</a>
                 <span className="mx-2">•</span>
-                <a href="#" className="hover:text-white/80">Twitter</a>
+                <a href="#" className="hover:text-white/80">X</a>
             </div>
         </footer>
     );
