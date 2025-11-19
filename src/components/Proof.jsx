@@ -1,65 +1,136 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
+import wsbLogo from "../assets/universities/wsb-logo.png";
+import putLogo from "../assets/universities/put-logo.png";
+import amuLogo from "../assets/universities/amu-logo.png";
 
-function animateCounters(){
-    const els = document.querySelectorAll('[data-counter]')
+// adjust path if needed
+import { supabase } from '../lib/supabase.js';
+
+function animateCounters() {
+    const els = document.querySelectorAll('[data-counter]');
+
     const run = (el) => {
-        const target = parseInt(el.getAttribute('data-counter'),10)
-        const duration = 1200
-        let start=null; const startVal = 0
-        const step = (ts)=>{ if(!start) start=ts; const p=Math.min((ts-start)/duration,1); const val=Math.floor(startVal+(target-startVal)*p); el.textContent = val.toLocaleString(); if(p<1) requestAnimationFrame(step) }
-        requestAnimationFrame(step)
-    }
-    const obs = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ run(e.target); obs.unobserve(e.target) } })
-    }, { threshold: 0.4 })
-    els.forEach(el=>obs.observe(el))
+        const target = parseInt(el.getAttribute('data-counter') || '0', 10);
+        const duration = 1200;
+        let start = null;
+
+        const step = (ts) => {
+            if (!start) start = ts;
+            const p = Math.min((ts - start) / duration, 1);
+            const val = Math.floor(target * p);
+            el.textContent = val.toLocaleString();
+            if (p < 1) requestAnimationFrame(step);
+        };
+
+        requestAnimationFrame(step);
+    };
+
+    let obs;
+
+    obs = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((e) => {
+                if (e.isIntersecting) {
+                    run(e.target);
+                    obs.unobserve(e.target);
+                }
+            });
+        },
+        { threshold: 0.4 }
+    );
+
+    els.forEach((el) => obs.observe(el));
 }
 
-export default function Proof(){
-    useEffect(()=>{ animateCounters() },[])
+const universities = [
+    { name: "WSB Merito Poznan", logo: wsbLogo },
+    { name: "PUT",               logo: putLogo },
+    { name: "AMU",               logo: amuLogo },
+];
+
+export default function Proof() {
+    // ❌ remove TypeScript generic + union
+    const [waitlistCount, setWaitlistCount] = useState(null);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        async function fetchWaitlist() {
+            try {
+                const { count, error } = await supabase
+                    .from('waitlist_submissions')
+                    .select('*', { count: 'exact', head: true });
+
+                if (error) {
+                    console.error('Failed to fetch waitlist count', error.message);
+                    return;
+                }
+
+                if (!cancelled) {
+                    const base = count ?? 0;
+                    setWaitlistCount(base + 200);
+                }
+            } catch (e) {
+                console.error('Waitlist count error:', e);
+            }
+        }
+
+        fetchWaitlist();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    // Run counter animation once we have the dynamic value
+    useEffect(() => {
+        if (waitlistCount !== null) {
+            animateCounters();
+        }
+    }, [waitlistCount]);
+
     return (
-        <section id="proof" className="px-6 py-16">
+        <section id="proof" className="px-4 sm:px-6 py-16">
             <div className="mx-auto max-w-6xl">
                 <div className="text-center">
                     <p className="text-white/60 text-sm">Interest from students at</p>
-                    <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 opacity-80">
-                        {['WSB Merito','PUT','AMU','PUEB','UEP'].map((name)=> (
-                            <div key={name} className="glass rounded-xl py-3 px-4 text-center text-xs">{name}</div>
+
+                    <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8 place-items-center opacity-80">
+                        {universities.map((u) => (
+                            <div
+                                key={u.name}
+                                className="flex flex-col items-center justify-center gap-3 w-full max-w-xs"
+                            >
+                                <img
+                                    src={u.logo}
+                                    alt={u.name}
+                                    className="w-16 h-16 md:w-24 md:h-24 object-contain"
+                                />
+                                <div className="glass rounded-xl py-3 px-4 text-center text-sm md:text-base font-medium w-full">
+                                    {u.name}
+                                </div>
+                            </div>
                         ))}
                     </div>
                 </div>
 
-                <div className="mt-10 grid sm:grid-cols-3 gap-4">
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     <div className="glass rounded-2xl p-6 text-center shadow-card">
-                        <div className="text-4xl font-bold tabular-nums"><span data-counter="2300">0</span>+</div>
-                        <div className="text-white/60 text-sm mt-1">Waitlist interest (mock)</div>
+                        <div className="text-4xl font-bold tabular-nums">
+                            <span data-counter={waitlistCount ?? 0}>0</span>+
+                        </div>
+                        <div className="text-white/60 text-sm mt-1">Waitlist interest</div>
                     </div>
-                    <div className="glass rounded-2xl p-6 text-center shadow-card">
-                        <div className="text-4xl font-bold tabular-nums"><span data-counter="9">0</span></div>
-                        <div className="text-white/60 text-sm mt-1">Campuses tracking demand</div>
-                    </div>
-                    <div className="glass rounded-2xl p-6 text-center shadow-card">
-                        <div className="text-4xl font-bold tabular-nums"><span data-counter="63">0</span></div>
-                        <div className="text-white/60 text-sm mt-1">Avg. RSVPs per featured event</div>
-                    </div>
-                </div>
 
-                <div className="mt-10 grid md:grid-cols-3 gap-4">
-                    {[
-                        { q:'“The only app that actually gets people to show up.”', a:'Marta – AMU', img:'https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=128&auto=format&fit=crop' },
-                        { q:'“Events feel curated, not spammy. Real people.”', a:'Piotr – PUT', img:'https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?q=80&w=128&auto=format&fit=crop' },
-                        { q:'“We filled a house party in 30 minutes.”', a:'Zeynep – PUEB', img:'https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=128&auto=format&fit=crop' },
-                    ].map(({q,a,img})=> (
-                        <figure key={a} className="glass rounded-2xl p-6 shadow-card">
-                            <blockquote className="text-white/80">{q}</blockquote>
-                            <figcaption className="mt-4 flex items-center gap-3">
-                                <img className="w-8 h-8 rounded-full object-cover" src={img} alt={a} />
-                                <div className="text-xs text-white/60">{a}</div>
-                            </figcaption>
-                        </figure>
-                    ))}
+                    <div className="glass rounded-2xl p-6 text-center shadow-card">
+                        <div className="text-4xl font-bold tabular-nums">
+                            <span data-counter="63">0</span>
+                        </div>
+                        <div className="text-white/60 text-sm mt-1">
+                            Avg. RSVPs per featured event
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-    )
+    );
 }

@@ -1,7 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import headerImg1 from "../assets/screen1.png";
-import headerImg2 from "../assets/screen2.png";
 
 const Body = () => {
     return (

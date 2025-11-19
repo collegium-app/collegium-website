@@ -17,7 +17,6 @@ export default function App(){
                 <Proof />
                 <Features />
                 <Screens />
-                <FAQ />
                 <Waitlist />
             </main>
             <Footer />
