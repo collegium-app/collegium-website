@@ -34,7 +34,7 @@ export default function Screens() {
                             </div>
 
                             {/* Centered labels */}
-                            <figcaption className="mt-4 text-center text-base text-white/70 select-none">
+                            <figcaption className="mt-4 text-center text-base text-white select-none md:text-3xl font-bold">
                                 {label}
                             </figcaption>
                         </figure>
