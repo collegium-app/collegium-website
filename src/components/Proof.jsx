@@ -47,15 +47,17 @@ const universities = [
 
 export default function Proof() {
     const [waitlistCount, setWaitlistCount] = useState(null);
+    const [avgRSVPs, setAvgRSVPs] = useState(null);
 
     useEffect(() => {
         let cancelled = false;
 
+        setAvgRSVPs(62);
+
         async function fetchWaitlist() {
             try {
-                const { count, error } = await supabase
-                    .from('waitlist_submissions')
-                    .select('*', { count: 'exact', head: true });
+                const { data, error } = await supabase
+                    .rpc('waitlist_public_count');
 
                 if (error) {
                     console.error('Failed to fetch waitlist count', error.message);
@@ -63,7 +65,7 @@ export default function Proof() {
                 }
 
                 if (!cancelled) {
-                    const base = count ?? 0;
+                    const base = data ?? 0; // data is the integer from the function
                     setWaitlistCount(base + 200);
                 }
             } catch (e) {
@@ -82,6 +84,7 @@ export default function Proof() {
             animateCounters();
         }
     }, [waitlistCount]);
+
 
     return (
         <section id="proof" className="px-4 sm:px-6 py-16">
@@ -122,7 +125,7 @@ export default function Proof() {
 
                     <div className="glass rounded-2xl p-6 text-center shadow-card">
                         <div className="text-4xl font-bold tabular-nums">
-                            <span data-counter="63">0</span>
+                            <span data-counter={avgRSVPs}>0</span>
                         </div>
                         <div className="text-white/60 text-sm mt-1">
                             Avg. RSVPs per featured event
