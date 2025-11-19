@@ -3,9 +3,8 @@ import { Lock, ArrowRight, CheckCircle2, AlertCircle } from "lucide-react";
 import { supabase } from "../lib/supabase.js";
 
 const MAX_NAME_LEN = 80;
-const MAX_UNI_LEN = 120;
+const MAX_UNI_LEN = 100;
 
-// very small sample; extend as you like
 const DISPOSABLE_DOMAINS = new Set([
     "mailinator.com","10minutemail.com","guerrillamail.com","yopmail.com",
     "tempmail.com","discard.email","trashmail.com"

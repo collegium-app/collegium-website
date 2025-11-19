@@ -1,20 +1,25 @@
-import React from "react";
-import Navbar from "./components/Navbar.jsx";
-import Header from "./section/Header.jsx";
-import Body from "./section/Body.jsx";
-import Apply from "./section/Apply.jsx";
-import Footer from "./section/Footer.jsx";
+import React from 'react'
+import Navbar from './components/Navbar'
+import Hero from './section/Hero'
+import Proof from './components/Proof'
+import Features from './components/Features'
+import Screens from './components/Screens'
+import FAQ from './components/FAQ'
+import Waitlist from './components/Waitlist'
+import Footer from './section/Footer'
 
-const App = () => {
+export default function App(){
     return (
-        <div className="min-h-screen bg-[#0b0b0f]">
+        <div className="bg-[#0b0b0f] text-white selection:bg-white/20">
             <Navbar />
-            <Header />
-            <Body />
-            <Apply />
+            <main>
+                <Hero />
+                <Proof />
+                <Features />
+                <Screens />
+                <Waitlist />
+            </main>
             <Footer />
         </div>
-    );
-};
-
-export default App;
+    )
+}
