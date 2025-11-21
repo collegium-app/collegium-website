@@ -39,7 +39,7 @@ export default function Hero(){
                         onClick={() => smoothScrollTo('proof', 900)}
                         className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-white/90"
                     >
-                        Why trust this
+                        Why Collegium
                     </button>
                     <button
                         onClick={() => smoothScrollTo('features', 900)}
@@ -49,7 +49,6 @@ export default function Hero(){
                     </button>
                 </div>
 
-                {/* Fixed section */}
                 <div className="mt-14 grid md:grid-cols-2 gap-12 items-center">
                     <div className="order-2 md:order-1 text-left">
                         <h2 className="text-3xl md:text-4xl font-bold">Your city, unfiltered</h2>
@@ -58,18 +57,17 @@ export default function Hero(){
                         </p>
                         <ul className="mt-5 space-y-2 text-white/70">
                             <li>• Only the ones who know how to turn a quiet night chaotic</li>
-                            <li>• Parties run by students who know how to set the vibe</li>
+                            <li>• Parties are ran by the students who know how to set the vibe</li>
                             <li>• Nights that start as ideas and end as stories you shouldn’t tell</li>
                         </ul>
                     </div>
 
                     <div className="order-1 md:order-2 flex justify-center">
-                        {/* Bigger phone, no borders, matching Screens section */}
                         <div className="w-[300px] md:w-[380px]">
                             <img
                                 src={eventFirst}
                                 className="rounded-[32px] w-full h-auto block"
-                                loading="eager"
+                                loading="lazy"
                                 decoding="async"
                             />
                         </div>

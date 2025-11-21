@@ -102,6 +102,7 @@ export default function Proof() {
                                 <img
                                     src={u.logo}
                                     alt={u.name}
+                                    loading="lazy"
                                     className="w-16 h-16 md:w-24 md:h-24 object-contain"
                                 />
                                 <div
